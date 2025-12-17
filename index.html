@@ -20,7 +20,7 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            -webkit-tap-highlight-color: transparent; /* Enlève le flash bleu au clic sur mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
         /* HEADER STYLE */
@@ -78,7 +78,6 @@
             margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             -webkit-overflow-scrolling: touch;
-            /* Cacher la barre de scroll tout en gardant le scroll */
             scrollbar-width: none; 
             -ms-overflow-style: none;
         }
@@ -98,7 +97,7 @@
             white-space: nowrap;
             transition: 0.3s;
             border-bottom: 4px solid transparent;
-            flex-shrink: 0; /* Empêche les boutons de s'écraser */
+            flex-shrink: 0;
         }
 
         .tab-btn:hover { background-color: #f9f9f9; }
@@ -159,17 +158,26 @@
         }
 
         .add-activity-form { display: grid; gap: 10px; }
-        .form-row { display: flex; gap: 10px; }
+        .form-row { display: flex; gap: 10px; align-items: flex-end; } /* align-items: flex-end pour aligner les champs en bas */
         .form-group { flex: 1; }
+
+        /* Style pour le label de l'heure */
+        .time-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--nyc-dark-grey);
+        }
 
         input, select, textarea {
             width: 100%;
-            padding: 12px; /* Un peu plus gros pour le tactile */
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
             font-family: inherit;
-            font-size: 16px; /* Empêche le zoom auto sur iPhone */
+            font-size: 16px;
         }
 
         button.add-btn {
@@ -245,7 +253,7 @@
         }
 
         /* DETAILS & BADGES */
-        .details { flex: 1; } /* Prend tout l'espace restant */
+        .details { flex: 1; }
         .details h4 { margin: 0 0 5px 0; font-size: 1.1rem; word-break: break-word; }
         .details p { margin: 0; font-size: 0.95rem; color: #555; word-break: break-word; }
 
@@ -262,11 +270,11 @@
         .badge-must { background-color: #f8d7da; color: #721c24; }
 
         .delete-btn {
-            color: #ff4444; /* Croix rouge sur fond blanc pour être moins agressif */
+            color: #ff4444;
             background: transparent;
             border: 2px solid transparent;
             cursor: pointer;
-            font-size: 1.5rem; /* Plus gros pour le doigt */
+            font-size: 1.5rem;
             margin-left: auto;
             padding: 0px 10px;
             line-height: 1;
@@ -285,17 +293,16 @@
         }
 
         /* =========================================
-           STYLE SPÉCIFIQUE MOBILE (Le changement principal est ici)
+           STYLE SPÉCIFIQUE MOBILE
            ========================================= */
         @media screen and (max-width: 768px) {
             header h1 { font-size: 1.4rem; }
             
             .container {
-                padding: 10px; /* Moins de marge sur les côtés */
+                padding: 10px;
                 padding-bottom: 60px;
             }
 
-            /* On réorganise les activités pour gagner de la place */
             .activity-block {
                 padding: 12px;
                 gap: 10px;
@@ -311,21 +318,20 @@
             .form-row {
                 flex-direction: column;
                 gap: 10px;
+                align-items: stretch; /* Important pour que les champs prennent toute la largeur */
             }
 
-            /* Bouton plus visible */
             .add-btn {
                 margin-top: 5px;
             }
 
-            /* Les onglets prennent toute la largeur dispo */
             .tabs {
-                margin: 0 -10px 20px -10px; /* Déborde un peu du container pour faire "app" */
+                margin: 0 -10px 20px -10px;
                 border-radius: 0;
             }
             
             .check-container {
-                padding-left: 30px; /* Ajustement checkbox */
+                padding-left: 30px;
             }
         }
     </style>
@@ -371,11 +377,9 @@
     </footer>
 
     <script type="module">
-        // Importation des outils Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // TA CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyBjVkf-vdIqzEZdoUPJAa_xlRIzfsPE_fA",
             authDomain: "nyc-planning.firebaseapp.com",
@@ -389,7 +393,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- GESTION DES ONGLETS ---
         window.openDay = function(evt, dayName) {
             var i, dayContent, tabBtn;
             dayContent = document.getElementsByClassName("day-content");
@@ -406,7 +409,6 @@
             if (evt) evt.currentTarget.className += " active";
         };
 
-        // --- FIREBASE LOGIC ---
         const q = query(collection(db, "activities"), orderBy("time"));
         onSnapshot(q, (snapshot) => {
             document.querySelectorAll('.day-content').forEach(div => {
@@ -460,18 +462,21 @@
             return div;
         }
 
+        // --- C'EST ICI QUE J'AI FAIT LA MODIFICATION ---
         function appendAddForm(parentDiv) {
             const formDiv = document.createElement('div');
             formDiv.className = 'add-activity-container';
+            // J'ai ajouté un label explicite pour le champ "time"
             formDiv.innerHTML = `
                 <h4>➕ Ajouter une activité</h4>
                 <div class="add-activity-form">
                     <div class="form-row">
                         <div class="form-group">
+                            <label class="time-label">Heure :</label>
                             <input type="time" class="new-act-time" required>
                         </div>
                         <div class="form-group" style="flex: 2;">
-                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)" required>
+                             <label class="time-label">&nbsp;</label> <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)" required>
                         </div>
                     </div>
                     <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>

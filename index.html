@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>New York les garsss 🗽</title>
     <style>
         :root {
@@ -20,18 +20,20 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            -webkit-tap-highlight-color: transparent; /* Enlève le flash bleu au clic sur mobile */
         }
 
         /* HEADER STYLE */
         header {
             background-color: var(--nyc-black);
             color: var(--nyc-yellow);
-            padding: 20px;
+            padding: 20px 10px;
             text-align: center;
             border-bottom: 5px solid var(--nyc-yellow);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         header h1 {
@@ -76,6 +78,13 @@
             margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             -webkit-overflow-scrolling: touch;
+            /* Cacher la barre de scroll tout en gardant le scroll */
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        
+        .tabs::-webkit-scrollbar { 
+            display: none; 
         }
 
         .tab-btn {
@@ -89,6 +98,7 @@
             white-space: nowrap;
             transition: 0.3s;
             border-bottom: 4px solid transparent;
+            flex-shrink: 0; /* Empêche les boutons de s'écraser */
         }
 
         .tab-btn:hover { background-color: #f9f9f9; }
@@ -120,18 +130,18 @@
             display: flex;
             align-items: flex-start;
             gap: 15px;
-            position: relative; /* Pour le bouton delete */
+            position: relative;
         }
 
         .activity-time {
             background-color: var(--nyc-black);
             color: var(--nyc-yellow);
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 6px;
             font-weight: bold;
             font-family: 'Courier New', monospace;
             font-size: 1.1rem;
-            min-width: 60px;
+            min-width: 55px;
             text-align: center;
             display: flex;
             align-items: center;
@@ -154,11 +164,12 @@
 
         input, select, textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px; /* Un peu plus gros pour le tactile */
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
             font-family: inherit;
+            font-size: 16px; /* Empêche le zoom auto sur iPhone */
         }
 
         button.add-btn {
@@ -234,8 +245,9 @@
         }
 
         /* DETAILS & BADGES */
-        .details h4 { margin: 0 0 5px 0; font-size: 1.1rem; }
-        .details p { margin: 0; font-size: 0.95rem; color: #555; }
+        .details { flex: 1; } /* Prend tout l'espace restant */
+        .details h4 { margin: 0 0 5px 0; font-size: 1.1rem; word-break: break-word; }
+        .details p { margin: 0; font-size: 0.95rem; color: #555; word-break: break-word; }
 
         .badge {
             display: inline-block;
@@ -250,18 +262,17 @@
         .badge-must { background-color: #f8d7da; color: #721c24; }
 
         .delete-btn {
-            color: white;
-            background: #ff4444;
-            border: none;
+            color: #ff4444; /* Croix rouge sur fond blanc pour être moins agressif */
+            background: transparent;
+            border: 2px solid transparent;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.5rem; /* Plus gros pour le doigt */
             margin-left: auto;
-            padding: 5px 10px;
-            border-radius: 4px;
+            padding: 0px 10px;
+            line-height: 1;
             transition: 0.2s;
-            align-self: flex-start;
         }
-        .delete-btn:hover { background: #cc0000; }
+        .delete-btn:hover { color: #cc0000; }
 
         /* FOOTER */
         footer {
@@ -271,6 +282,51 @@
             color: #888;
             font-size: 0.8rem;
             margin-top: 40px;
+        }
+
+        /* =========================================
+           STYLE SPÉCIFIQUE MOBILE (Le changement principal est ici)
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            header h1 { font-size: 1.4rem; }
+            
+            .container {
+                padding: 10px; /* Moins de marge sur les côtés */
+                padding-bottom: 60px;
+            }
+
+            /* On réorganise les activités pour gagner de la place */
+            .activity-block {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .activity-time {
+                font-size: 0.9rem;
+                padding: 5px;
+                min-width: 50px;
+            }
+
+            /* On empile le formulaire sur mobile */
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            /* Bouton plus visible */
+            .add-btn {
+                margin-top: 5px;
+            }
+
+            /* Les onglets prennent toute la largeur dispo */
+            .tabs {
+                margin: 0 -10px 20px -10px; /* Déborde un peu du container pour faire "app" */
+                border-radius: 0;
+            }
+            
+            .check-container {
+                padding-left: 30px; /* Ajustement checkbox */
+            }
         }
     </style>
 </head>
@@ -286,7 +342,7 @@
         <div class="info-card">
             <h3>📍 QG : Holiday Inn Times Square</h3>
             <p><strong>Team :</strong> 3 étudiants (Gwada represent 🇬🇵)</p>
-            <p><strong>Info :</strong> Planning synchronisé en temps réel !</p>
+            <p><strong>Info :</strong> Planning live 🔥</p>
         </div>
 
         <div class="tabs">
@@ -300,8 +356,7 @@
             <button class="tab-btn" onclick="openDay(event, 'day8')">Mer 18</button>
         </div>
 
-        <div id="day1" class="day-content active">
-             </div>
+        <div id="day1" class="day-content active"></div>
         <div id="day2" class="day-content"></div>
         <div id="day3" class="day-content"></div>
         <div id="day4" class="day-content"></div>
@@ -320,7 +375,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // TA CONFIGURATION (Copiée de ton message)
+        // TA CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyBjVkf-vdIqzEZdoUPJAa_xlRIzfsPE_fA",
             authDomain: "nyc-planning.firebaseapp.com",
@@ -331,7 +386,6 @@
             measurementId: "G-DNCJWMPD2X"
         };
 
-        // Initialisation
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
@@ -352,20 +406,14 @@
             if (evt) evt.currentTarget.className += " active";
         };
 
-        // --- FONCTIONS FIREBASE ---
-
-        // 1. ÉCOUTER les changements en temps réel
-        // Cette fonction se lance toute seule dès que quelqu'un modifie la base de données
+        // --- FIREBASE LOGIC ---
         const q = query(collection(db, "activities"), orderBy("time"));
         onSnapshot(q, (snapshot) => {
-            // D'abord, on nettoie l'affichage pour éviter les doublons
             document.querySelectorAll('.day-content').forEach(div => {
-                div.innerHTML = ''; // On vide
-                // On remet le formulaire d'ajout à la fin de chaque jour
+                div.innerHTML = ''; 
                 appendAddForm(div);
             });
 
-            // Ensuite, on affiche chaque activité reçue de la base de données
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 const dayDiv = document.getElementById(data.dayId);
@@ -378,7 +426,6 @@
             });
         });
 
-        // Fonction pour créer le visuel d'une activité
         function createActivityElement(id, data) {
             const div = document.createElement('div');
             div.className = 'activity-block';
@@ -407,22 +454,17 @@
                 <button class="delete-btn">×</button>
             `;
 
-            // Ajout des écouteurs d'événements (Clicks)
-            // Bouton supprimer
             div.querySelector('.delete-btn').addEventListener('click', () => deleteActivity(id));
-            
-            // Checkbox
             div.querySelector('.act-checkbox').addEventListener('change', (e) => toggleCheck(id, e.target.checked));
 
             return div;
         }
 
-        // Fonction pour ajouter le formulaire en bas de chaque page
         function appendAddForm(parentDiv) {
             const formDiv = document.createElement('div');
             formDiv.className = 'add-activity-container';
             formDiv.innerHTML = `
-                <h4>➕ Ajouter une activité (Visible par tous)</h4>
+                <h4>➕ Ajouter une activité</h4>
                 <div class="add-activity-form">
                     <div class="form-row">
                         <div class="form-group">
@@ -445,7 +487,6 @@
                 </div>
             `;
             
-            // Écouteur sur le bouton ajouter
             formDiv.querySelector('.add-btn').addEventListener('click', function() {
                 addActivityToFirebase(this, parentDiv.id);
             });
@@ -453,7 +494,6 @@
             parentDiv.appendChild(formDiv);
         }
 
-        // 2. AJOUTER une activité dans Firebase
         async function addActivityToFirebase(btn, dayId) {
             const container = btn.closest('.add-activity-container');
             const time = container.querySelector('.new-act-time').value;
@@ -466,7 +506,7 @@
                 return;
             }
 
-            btn.disabled = true; // Empêcher le double clic
+            btn.disabled = true;
             btn.innerText = "Envoi...";
 
             try {
@@ -477,10 +517,9 @@
                     desc: desc,
                     type: type,
                     checked: false,
-                    createdAt: Date.now() // Utile pour le tri si besoin
+                    createdAt: Date.now()
                 });
                 
-                // Reset form
                 container.querySelector('.new-act-time').value = '';
                 container.querySelector('.new-act-title').value = '';
                 container.querySelector('.new-act-desc').value = '';
@@ -494,22 +533,17 @@
             btn.innerText = "Ajouter au Cloud ☁️";
         }
 
-        // 3. SUPPRIMER
         async function deleteActivity(id) {
             if(confirm("Supprimer pour tout le monde ?")) {
                 await deleteDoc(doc(db, "activities", id));
             }
         }
 
-        // 4. COCHER / DÉCOCHER
         async function toggleCheck(id, isChecked) {
             await updateDoc(doc(db, "activities", id), {
                 checked: isChecked
             });
         }
-
-        // Initialisation de l'affichage par défaut (Jour 1)
-        // (Rien de spécial à faire, le onSnapshot s'en charge)
     </script>
 
 </body>

@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New York les garsss 🗽</title>
+    <style>
+        :root {
+            --nyc-yellow: #FFDE00;
+            --nyc-black: #111111;
+            --nyc-grey: #f4f4f4;
+            --nyc-dark-grey: #333;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--nyc-grey);
+            color: var(--nyc-black);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* HEADER STYLE */
+        header {
+            background-color: var(--nyc-black);
+            color: var(--nyc-yellow);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--nyc-yellow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 80px;
+            /* Space for footer */
+        }
+
+        /* INFO CARD */
+        .info-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--nyc-yellow);
+        }
+
+        .info-card h3 {
+            margin-top: 0;
+        }
+
+        /* NAVIGATION TABS */
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            -webkit-overflow-scrolling: touch;
+            /* Smooth scroll mobile */
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            color: var(--nyc-dark-grey);
+            white-space: nowrap;
+            transition: 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background-color: #f9f9f9;
+        }
+
+        .tab-btn.active {
+            border-bottom: 4px solid var(--nyc-yellow);
+            background-color: #fffbe6;
+        }
+
+        /* CONTENT SECTIONS */
+        .day-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .day-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .activity-block {
+            background: white;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .activity-time {
+            background-color: var(--nyc-black);
+            color: var(--nyc-yellow);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            min-width: 60px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-activity-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 2px dashed #ddd;
+        }
+
+        .add-activity-form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        button.add-btn {
+            background-color: var(--nyc-yellow);
+            color: var(--nyc-black);
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        button.add-btn:hover {
+            background-color: #e6c800;
+            transform: translateY(-2px);
+        }
+
+        .delete-btn {
+            color: #ff4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: auto;
+            padding: 0 10px;
+        }
+
+        /* CHECKBOX STYLE */
+        .check-container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            user-select: none;
+            min-width: 20px;
+        }
+
+        .check-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        .check-container:hover input~.checkmark {
+            background-color: #ccc;
+        }
+
+        .check-container input:checked~.checkmark {
+            background-color: var(--nyc-black);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .check-container input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .check-container .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid var(--nyc-yellow);
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        /* TEXT CONTENT */
+        .details h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+        }
+
+        .details p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .badge-food {
+            background-color: #ffecb3;
+            color: #856404;
+        }
+
+        .badge-walk {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .delete-btn {
+            color: white;
+            background: #ff4444;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: auto;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: 0.2s;
+            align-self: flex-start;
+            /* Align top */
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--nyc-black);
+            color: #888;
+            font-size: 0.8rem;
+            margin-top: 40px;
+        }
+
+        /* MAP LINK */
+        a.map-link {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>New York les garsss 🇺🇸</h1>
+        <p>11 Mars - 18 Mars 2026</p>
+    </header>
+
+    <div class="container">
+
+        <div class="info-card">
+            <h3>📍 QG : Holiday Inn Times Square</h3>
+            <p><strong>Team :</strong> 3 étudiants (Gwada represent 🇬🇵)</p>
+            <p><strong>Budget :</strong> Serré (Street food & gratuité)</p>
+            <p><strong>Météo Mars :</strong> Prévoir manteau, bonnet ET lunettes de soleil (ça caille encore !).</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openDay(event, 'day1')">Mer 11</button>
+            <button class="tab-btn" onclick="openDay(event, 'day2')">Jeu 12</button>
+            <button class="tab-btn" onclick="openDay(event, 'day3')">Ven 13</button>
+            <button class="tab-btn" onclick="openDay(event, 'day4')">Sam 14</button>
+            <button class="tab-btn" onclick="openDay(event, 'day5')">Dim 15</button>
+            <button class="tab-btn" onclick="openDay(event, 'day6')">Lun 16</button>
+            <button class="tab-btn" onclick="openDay(event, 'day7')">Mar 17</button>
+            <button class="tab-btn" onclick="openDay(event, 'day8')">Mer 18</button>
+        </div>
+
+        <div id="day1" class="day-content active">
+            <div class="activity-block">
+                <div class="activity-time">15:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🛬 Arrivée & Check-in</h4>
+                    <p>Déposez les valises à l'hôtel à Times Square. Respirez, vous y êtes !</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Times+Square+New+York" target="_blank"
+                        class="map-link">Voir carte</a>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">18:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🌆 Le Choc de Times Square</h4>
+                    <span class="badge badge-walk">Marche</span>
+                    <p>Première immersion de nuit. Les écrans, le monde, le bruit. C'est le moment photo cliché
+                        obligatoire.</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">20:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🍕 Dîner : Joe's Pizza ou 99 cents Pizza</h4>
+                    <span class="badge badge-food">Budget $</span>
+                    <p>Pour commencer soft : une vraie "slice" new-yorkaise pas chère sur Broadway.</p>
+                </div>
+            </div>
+
+            <div class="add-activity-container">
+                <h4>➕ Ajouter une activité</h4>
+                <div class="add-activity-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" class="new-act-time">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)">
+                        </div>
+                    </div>
+                    <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>
+                    <div class="form-row">
+                        <select class="new-act-type">
+                            <option value="">Type (Aucun)</option>
+                            <option value="badge-food">Food 🍔</option>
+                            <option value="badge-walk">Marche 🚶</option>
+                            <option value="badge-must">Must 🔥</option>
+                        </select>
+                        <button class="add-btn" onclick="addActivity(this)">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day2" class="day-content">
+            <div class="activity-block">
+                <div class="activity-time">09:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🌳 Central Park Sud</h4>
+                    <span class="badge badge-walk">Marche</span>
+                    <p>Entrée par Columbus Circle. Baladez-vous vers Bethesda Terrace (le tunnel des films).</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">11:30</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🍪 Levain Bakery (Le Graal)</h4>
+                    <span class="badge badge-must">Incontournable</span> <span class="badge badge-food">Food</span>
+                    <p>Celle sur la 74th St & Amsterdam Ave. Prenez le cookie "Walnut Chocolate Chip". Attention c'est
+                        lourd (et cher, mais ça vaut le coup) !</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Levain+Bakery+167+W+74th+St"
+                        target="_blank" class="map-link">📍 167 W 74th St</a>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">14:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🏛️ American Museum of Natural History</h4>
+                    <span class="badge badge-walk">Culture</span>
+                    <p>Juste à côté. C'est le musée de "La Nuit au Musée". (Vérifiez les tarifs étudiants !).</p>
+                </div>
+            </div>
+
+            <div class="add-activity-container">
+                <h4>➕ Ajouter une activité</h4>
+                <div class="add-activity-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" class="new-act-time">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)">
+                        </div>
+                    </div>
+                    <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>
+                    <div class="form-row">
+                        <select class="new-act-type">
+                            <option value="">Type (Aucun)</option>
+                            <option value="badge-food">Food 🍔</option>
+                            <option value="badge-walk">Marche 🚶</option>
+                            <option value="badge-must">Must 🔥</option>
+                        </select>
+                        <button class="add-btn" onclick="addActivity(this)">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day3" class="day-content">
+            <div class="activity-block">
+                <div class="activity-time">09:30</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>⛴️ Staten Island Ferry</h4>
+                    <span class="badge badge-must">GRATUIT</span>
+                    <p>Prenez le métro jusqu'à "South Ferry". Le bateau orange est 100% gratuit. Il passe juste devant
+                        la Statue de la Liberté.</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">11:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🐂 Wall Street & Le Taureau</h4>
+                    <p>Touchez le taureau (le Charging Bull) pour la richesse (superstition !). Passage devant la
+                        Bourse.</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">18:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🌉 Brooklyn Bridge (Coucher de soleil)</h4>
+                    <span class="badge badge-walk">Grosse Marche</span>
+                    <p>Traversez le pont à pied DEPUIS Manhattan VERS Brooklyn. La vue est folle.</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">19:30</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>📸 DUMBO</h4>
+                    <p>Photo spot : Washington Street (le pont entre les immeubles). Dîner Shake Shack ou Time Out
+                        Market (plus cher) à côté.</p>
+                </div>
+            </div>
+
+            <div class="add-activity-container">
+                <h4>➕ Ajouter une activité</h4>
+                <div class="add-activity-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" class="new-act-time">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)">
+                        </div>
+                    </div>
+                    <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>
+                    <div class="form-row">
+                        <select class="new-act-type">
+                            <option value="">Type (Aucun)</option>
+                            <option value="badge-food">Food 🍔</option>
+                            <option value="badge-walk">Marche 🚶</option>
+                            <option value="badge-must">Must 🔥</option>
+                        </select>
+                        <button class="add-btn" onclick="addActivity(this)">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day4" class="day-content">
+            <div class="activity-block">
+                <div class="activity-time">10:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🛤️ La High Line</h4>
+                    <span class="badge badge-walk">Cool & Gratuit</span>
+                    <p>Une ancienne voie ferrée devenue parc suspendu. Commencez au nord (Hudson Yards) et descendez
+                        vers le sud.</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">12:30</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🌮 Chelsea Market</h4>
+                    <span class="badge badge-food">Food</span>
+                    <p>L'usine Oreo transformée en halle gourmande. Idéal pour manger sur le pouce (Los Tacos No.1 sont
+                        incroyables).</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">14:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🌳 Little Island</h4>
+                    <p>Le nouveau parc sur pilotis sur l'Hudson River. Très photogénique.</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">16:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🏘️ Greenwich Village</h4>
+                    <p>Ambiance "Friends". Passez voir l'immeuble de la série (Bedford St & Grove St). Finir à
+                        Washington Square Park (ambiance étudiante NYU).</p>
+                </div>
+            </div>
+
+            <div class="add-activity-container">
+                <h4>➕ Ajouter une activité</h4>
+                <div class="add-activity-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" class="new-act-time">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)">
+                        </div>
+                    </div>
+                    <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>
+                    <div class="form-row">
+                        <select class="new-act-type">
+                            <option value="">Type (Aucun)</option>
+                            <option value="badge-food">Food 🍔</option>
+                            <option value="badge-walk">Marche 🚶</option>
+                            <option value="badge-must">Must 🔥</option>
+                        </select>
+                        <button class="add-btn" onclick="addActivity(this)">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day5" class="day-content">
+            <div class="activity-block">
+                <div class="activity-time">10:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🛍️ SoHo Shopping</h4>
+                    <span class="badge badge-walk">Lèche-vitrine</span>
+                    <p>Broadway entre Canal St et Houston St. Il y a toutes les marques cool et abordables (Uniqlo,
+                        Nike, etc.) et l'architecture Cast Iron.</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">13:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🇨🇳 Chinatown & 🇮🇹 Little Italy</h4>
+                    <span class="badge badge-food">Pas cher</span>
+                    <p>Mangez des Dumplings chez "Fried Dumpling" ou "Shu Jiao Fu Zhou" (super cheap !). Baladez-vous
+                        dans les rues colorées.</p>
+                </div>
+            </div>
+
+            <div class="add-activity-container">
+                <h4>➕ Ajouter une activité</h4>
+                <div class="add-activity-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" class="new-act-time">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)">
+                        </div>
+                    </div>
+                    <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>
+                    <div class="form-row">
+                        <select class="new-act-type">
+                            <option value="">Type (Aucun)</option>
+                            <option value="badge-food">Food 🍔</option>
+                            <option value="badge-walk">Marche 🚶</option>
+                            <option value="badge-must">Must 🔥</option>
+                        </select>
+                        <button class="add-btn" onclick="addActivity(this)">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day6" class="day-content">
+            <div class="activity-block">
+                <div class="activity-time">09:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🚠 Roosevelt Island Tram</h4>
+                    <span class="badge badge-must">Vue pas chère</span>
+                    <p>Au niveau de la 59th St & 2nd Ave. Ça coûte le prix d'un ticket de métro (utilisez votre
+                        CB/OMNY). Vue de dingue sur la ville.</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">11:30</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🚉 Grand Central Terminal</h4>
+                    <p>La gare mythique. Allez voir le plafond et l'horloge. Mangez au "Dining Concourse" en bas (Shake
+                        Shack, Magnolia Bakery).</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">14:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>📚 New York Public Library & Bryant Park</h4>
+                    <p>Entrée gratuite dans la bibliothèque (salle de lecture Harry Potter). Repos dans le parc juste
+                        derrière.</p>
+                </div>
+            </div>
+
+            <div class="add-activity-container">
+                <h4>➕ Ajouter une activité</h4>
+                <div class="add-activity-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" class="new-act-time">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)">
+                        </div>
+                    </div>
+                    <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>
+                    <div class="form-row">
+                        <select class="new-act-type">
+                            <option value="">Type (Aucun)</option>
+                            <option value="badge-food">Food 🍔</option>
+                            <option value="badge-walk">Marche 🚶</option>
+                            <option value="badge-must">Must 🔥</option>
+                        </select>
+                        <button class="add-btn" onclick="addActivity(this)">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day7" class="day-content">
+            <div class="activity-block">
+                <div class="activity-time">09:30</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🥯 Essayer un vrai Bagel</h4>
+                    <span class="badge badge-food">Ptit Dej</span>
+                    <p>Essayez Liberty Bagels (proche de votre hôtel) ou Ess-a-Bagel. Cream cheese obligatoire !</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">11:30</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🎁 Derniers achats / Souvenirs</h4>
+                    <p>Macy's (Herald Square) ou flâner sur la 5ème Avenue (Trump Tower, Apple Store cube de verre).</p>
+                </div>
+            </div>
+            <div class="activity-block">
+                <div class="activity-time">18:30</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>🏙️ Top of the Rock (Optionnel)</h4>
+                    <p>Si vous voulez payer une seule vue en hauteur ($40+), faites celle-là au coucher de soleil pour
+                        voir l'Empire State Building illuminé.</p>
+                </div>
+            </div>
+
+            <div class="add-activity-container">
+                <h4>➕ Ajouter une activité</h4>
+                <div class="add-activity-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" class="new-act-time">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)">
+                        </div>
+                    </div>
+                    <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>
+                    <div class="form-row">
+                        <select class="new-act-type">
+                            <option value="">Type (Aucun)</option>
+                            <option value="badge-food">Food 🍔</option>
+                            <option value="badge-walk">Marche 🚶</option>
+                            <option value="badge-must">Must 🔥</option>
+                        </select>
+                        <button class="add-btn" onclick="addActivity(this)">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day8" class="day-content">
+            <div class="activity-block">
+                <div class="activity-time">08:00</div>
+                <label class="check-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>👋 Départ</h4>
+                    <p>Dernier check de la chambre. Direction l'aéroport. Bon retour en Guadeloupe !</p>
+                </div>
+            </div>
+
+            <div class="add-activity-container">
+                <h4>➕ Ajouter une activité</h4>
+                <div class="add-activity-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" class="new-act-time">
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <input type="text" class="new-act-title" placeholder="Titre (ex: Resto)">
+                        </div>
+                    </div>
+                    <textarea class="new-act-desc" rows="2" placeholder="Description..."></textarea>
+                    <div class="form-row">
+                        <select class="new-act-type">
+                            <option value="">Type (Aucun)</option>
+                            <option value="badge-food">Food 🍔</option>
+                            <option value="badge-walk">Marche 🚶</option>
+                            <option value="badge-must">Must 🔥</option>
+                        </select>
+                        <button class="add-btn" onclick="addActivity(this)">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Généré par ton Assistant Voyage IA 🤖<br>New York City 2026</p>
+    </footer>
+
+    <script>
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function () {
+            initStaticActivities();
+            loadActivities();
+        });
+
+        // Script pour gérer les onglets
+        function openDay(evt, dayName) {
+            var i, dayContent, tabBtn;
+
+            dayContent = document.getElementsByClassName("day-content");
+            for (i = 0; i < dayContent.length; i++) {
+                dayContent[i].style.display = "none";
+                dayContent[i].classList.remove("active");
+            }
+
+            tabBtn = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabBtn.length; i++) {
+                tabBtn[i].className = tabBtn[i].className.replace(" active", "");
+            }
+
+            document.getElementById(dayName).style.display = "block";
+            document.getElementById(dayName).classList.add("active");
+            if (evt) evt.currentTarget.className += " active";
+        }
+
+        // --- GESTION DES ACTIVITÉS ---
+
+        function initStaticActivities() {
+            const deletedStatic = JSON.parse(localStorage.getItem('nyc_deleted_static')) || [];
+            const staticBlocks = document.querySelectorAll('.day-content .activity-block');
+
+            staticBlocks.forEach(block => {
+                // Identification unique via le titre et le jour
+                const titleElement = block.querySelector('h4');
+                if (!titleElement) return;
+
+                // Si l'activité a déjà un ID data-id (dynamique), on ignore ici
+                if (block.dataset.id) return;
+
+                const title = titleElement.innerText.trim();
+                const dayId = block.closest('.day-content').id;
+                const uniqueId = dayId + "_" + title;
+
+                // Masquer si supprimé
+                if (deletedStatic.includes(uniqueId)) {
+                    block.remove();
+                    return;
+                }
+
+                // Ajouter bouton suppression s'il n'y en a pas
+                if (!block.querySelector('.delete-btn')) {
+                    const btn = document.createElement('button');
+                    btn.className = 'delete-btn';
+                    btn.innerText = '×';
+                    btn.onclick = function () { deleteStaticActivity(this, uniqueId); };
+                    block.appendChild(btn);
+                }
+            });
+        }
+
+        function deleteStaticActivity(btn, uniqueId) {
+            if (!confirm("Supprimer cette activité ?")) return;
+
+            // Persistance de la suppression
+            let deleted = JSON.parse(localStorage.getItem('nyc_deleted_static')) || [];
+            deleted.push(uniqueId);
+            localStorage.setItem('nyc_deleted_static', JSON.stringify(deleted));
+
+            // Suppression DOM
+            btn.closest('.activity-block').remove();
+        }
+
+        function addActivity(btn) {
+            const container = btn.closest('.add-activity-container');
+            const dayId = container.parentElement.id; // ex: day1
+
+            const time = container.querySelector('.new-act-time').value;
+            const title = container.querySelector('.new-act-title').value;
+            const desc = container.querySelector('.new-act-desc').value;
+            const type = container.querySelector('.new-act-type').value;
+
+            if (!title) {
+                alert("Il faut au moins un titre !");
+                return;
+            }
+
+            const activityData = {
+                id: Date.now(),
+                time: time || "??:??",
+                title: title,
+                desc: desc,
+                type: type,
+                checked: false
+            };
+
+            // 1. Ajouter au DOM
+            renderActivity(dayId, activityData);
+
+            // 2. Sauvegarder
+            saveActivity(dayId, activityData);
+
+            // Reset form
+            container.querySelector('.new-act-time').value = '';
+            container.querySelector('.new-act-title').value = '';
+            container.querySelector('.new-act-desc').value = '';
+            container.querySelector('.new-act-type').value = '';
+        }
+
+        function renderActivity(dayId, data) {
+            const dayDiv = document.getElementById(dayId);
+            // Insérer avant le container d'ajout (le dernier enfant est le form container)
+            const formContainer = dayDiv.querySelector('.add-activity-container');
+
+            const div = document.createElement('div');
+            div.className = 'activity-block';
+            div.dataset.id = data.id; // Pour suppression future
+
+            let badgeHtml = '';
+            if (data.type) {
+                let label = "Activity";
+                if (data.type.includes('food')) label = "Food";
+                if (data.type.includes('walk')) label = "Marche";
+                if (data.type.includes('must')) label = "Immanquable";
+                badgeHtml = `<span class="badge ${data.type}">${label}</span>`;
+            }
+
+            div.innerHTML = `
+                <div class="activity-time">${data.time}</div>
+                <label class="check-container">
+                    <input type="checkbox" ${data.checked ? 'checked' : ''} onchange="toggleCheck('${dayId}', ${data.id})">
+                    <span class="checkmark"></span>
+                </label>
+                <div class="details">
+                    <h4>${data.title}</h4>
+                    ${badgeHtml}
+                    <p>${data.desc}</p>
+                </div>
+                <button class="delete-btn" onclick="deleteActivity(this, '${dayId}', ${data.id})">×</button>
+            `;
+
+            dayDiv.insertBefore(div, formContainer);
+        }
+
+        function saveActivity(dayId, data) {
+            let store = JSON.parse(localStorage.getItem('nyc_planning_data')) || {};
+            if (!store[dayId]) store[dayId] = [];
+            store[dayId].push(data);
+            localStorage.setItem('nyc_planning_data', JSON.stringify(store));
+        }
+
+        function deleteActivity(btn, dayId, id) {
+            if (!confirm("Supprimer ?")) return;
+
+            // DOM
+            btn.closest('.activity-block').remove();
+
+            // Storage
+            let store = JSON.parse(localStorage.getItem('nyc_planning_data')) || {};
+            if (store[dayId]) {
+                store[dayId] = store[dayId].filter(a => a.id !== id);
+                localStorage.setItem('nyc_planning_data', JSON.stringify(store));
+            }
+        }
+
+        function toggleCheck(dayId, id) {
+            let store = JSON.parse(localStorage.getItem('nyc_planning_data')) || {};
+            if (store[dayId]) {
+                let act = store[dayId].find(a => a.id === id);
+                if (act) act.checked = !act.checked;
+                localStorage.setItem('nyc_planning_data', JSON.stringify(store));
+            }
+        }
+
+        function loadActivities() {
+            let store = JSON.parse(localStorage.getItem('nyc_planning_data')) || {};
+            for (const [dayId, activities] of Object.entries(store)) {
+                if (document.getElementById(dayId)) {
+                    activities.forEach(act => renderActivity(dayId, act));
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

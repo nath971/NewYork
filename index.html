@@ -15,7 +15,11 @@
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--nyc-grey);
+            background-image: url('background_new.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
             color: var(--nyc-black);
             margin: 0;
             padding: 0;
@@ -33,7 +37,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
@@ -67,7 +71,9 @@
             border-left: 5px solid var(--nyc-yellow);
         }
 
-        .info-card h3 { margin-top: 0; }
+        .info-card h3 {
+            margin-top: 0;
+        }
 
         /* NAVIGATION TABS */
         .tabs {
@@ -78,12 +84,12 @@
             margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; 
+            scrollbar-width: none;
             -ms-overflow-style: none;
         }
-        
-        .tabs::-webkit-scrollbar { 
-            display: none; 
+
+        .tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .tab-btn {
@@ -100,7 +106,9 @@
             flex-shrink: 0;
         }
 
-        .tab-btn:hover { background-color: #f9f9f9; }
+        .tab-btn:hover {
+            background-color: #f9f9f9;
+        }
 
         .tab-btn.active {
             border-bottom: 4px solid var(--nyc-yellow);
@@ -113,11 +121,20 @@
             animation: fadeIn 0.5s;
         }
 
-        .day-content.active { display: block; }
+        .day-content.active {
+            display: block;
+        }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .activity-block {
@@ -157,9 +174,20 @@
             border: 2px dashed #ddd;
         }
 
-        .add-activity-form { display: grid; gap: 10px; }
-        .form-row { display: flex; gap: 10px; align-items: flex-end; }
-        .form-group { flex: 1; }
+        .add-activity-form {
+            display: grid;
+            gap: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .form-group {
+            flex: 1;
+        }
 
         .time-label {
             display: block;
@@ -169,7 +197,9 @@
             color: var(--nyc-dark-grey);
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
@@ -230,8 +260,13 @@
             border-radius: 5px;
         }
 
-        .check-container:hover input~.checkmark { background-color: #ccc; }
-        .check-container input:checked~.checkmark { background-color: var(--nyc-black); }
+        .check-container:hover input~.checkmark {
+            background-color: #ccc;
+        }
+
+        .check-container input:checked~.checkmark {
+            background-color: var(--nyc-black);
+        }
 
         .checkmark:after {
             content: "";
@@ -239,7 +274,9 @@
             display: none;
         }
 
-        .check-container input:checked~.checkmark:after { display: block; }
+        .check-container input:checked~.checkmark:after {
+            display: block;
+        }
 
         .check-container .checkmark:after {
             left: 9px;
@@ -252,9 +289,22 @@
         }
 
         /* DETAILS & BADGES */
-        .details { flex: 1; }
-        .details h4 { margin: 0 0 5px 0; font-size: 1.1rem; word-break: break-word; }
-        .details p { margin: 0; font-size: 0.95rem; color: #555; word-break: break-word; }
+        .details {
+            flex: 1;
+        }
+
+        .details h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+            word-break: break-word;
+        }
+
+        .details p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #555;
+            word-break: break-word;
+        }
 
         .badge {
             display: inline-block;
@@ -264,16 +314,51 @@
             font-weight: bold;
             margin-top: 5px;
         }
-        
+
         /* --- COULEURS DES NOUVEAUX TYPES --- */
-        .badge-food { background-color: #ffecb3; color: #856404; } /* Jaune */
-        .badge-walk { background-color: #d4edda; color: #155724; } /* Vert */
-        .badge-must { background-color: #f8d7da; color: #721c24; } /* Rouge clair */
-        
-        .badge-visit { background-color: #cce5ff; color: #004085; } /* Bleu */
-        .badge-shop { background-color: #e0cffc; color: #3e0075; } /* Violet */
-        .badge-party { background-color: #fcc2d7; color: #a61e4d; } /* Rose */
-        .badge-trans { background-color: #e2e3e5; color: #383d41; } /* Gris */
+        .badge-food {
+            background-color: #ffecb3;
+            color: #856404;
+        }
+
+        /* Jaune */
+        .badge-walk {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        /* Vert */
+        .badge-must {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Rouge clair */
+
+        .badge-visit {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        /* Bleu */
+        .badge-shop {
+            background-color: #e0cffc;
+            color: #3e0075;
+        }
+
+        /* Violet */
+        .badge-party {
+            background-color: #fcc2d7;
+            color: #a61e4d;
+        }
+
+        /* Rose */
+        .badge-trans {
+            background-color: #e2e3e5;
+            color: #383d41;
+        }
+
+        /* Gris */
 
         .delete-btn {
             color: #ff4444;
@@ -286,7 +371,10 @@
             line-height: 1;
             transition: 0.2s;
         }
-        .delete-btn:hover { color: #cc0000; }
+
+        .delete-btn:hover {
+            color: #cc0000;
+        }
 
         /* FOOTER */
         footer {
@@ -300,8 +388,10 @@
 
         /* STYLE MOBILE */
         @media screen and (max-width: 768px) {
-            header h1 { font-size: 1.4rem; }
-            
+            header h1 {
+                font-size: 1.4rem;
+            }
+
             .container {
                 padding: 10px;
                 padding-bottom: 60px;
@@ -332,7 +422,7 @@
                 margin: 0 -10px 20px -10px;
                 border-radius: 0;
             }
-            
+
             .check-container {
                 padding-left: 30px;
             }
@@ -396,7 +486,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        window.openDay = function(evt, dayName) {
+        window.openDay = function (evt, dayName) {
             var i, dayContent, tabBtn;
             dayContent = document.getElementsByClassName("day-content");
             for (i = 0; i < dayContent.length; i++) {
@@ -415,14 +505,14 @@
         const q = query(collection(db, "activities"), orderBy("time"));
         onSnapshot(q, (snapshot) => {
             document.querySelectorAll('.day-content').forEach(div => {
-                div.innerHTML = ''; 
+                div.innerHTML = '';
                 appendAddForm(div);
             });
 
             snapshot.forEach((doc) => {
                 const data = doc.data();
                 const dayDiv = document.getElementById(data.dayId);
-                
+
                 if (dayDiv) {
                     const activityHTML = createActivityElement(doc.id, data);
                     const formContainer = dayDiv.querySelector('.add-activity-container');
@@ -448,7 +538,7 @@
                 if (data.type.includes('shop')) label = "Shopping";
                 if (data.type.includes('party')) label = "Soirée";
                 if (data.type.includes('trans')) label = "Transport";
-                
+
                 badgeHtml = `<span class="badge ${data.type}">${label}</span>`;
             }
 
@@ -505,8 +595,8 @@
                     </div>
                 </div>
             `;
-            
-            formDiv.querySelector('.add-btn').addEventListener('click', function() {
+
+            formDiv.querySelector('.add-btn').addEventListener('click', function () {
                 addActivityToFirebase(this, parentDiv.id);
             });
 
@@ -538,7 +628,7 @@
                     checked: false,
                     createdAt: Date.now()
                 });
-                
+
                 container.querySelector('.new-act-time').value = '';
                 container.querySelector('.new-act-title').value = '';
                 container.querySelector('.new-act-desc').value = '';
@@ -547,13 +637,13 @@
                 console.error("Erreur d'ajout: ", e);
                 alert("Erreur lors de l'ajout. Vérifie ta connexion.");
             }
-            
+
             btn.disabled = false;
             btn.innerText = "Ajouter l'activité 📚";
         }
 
         async function deleteActivity(id) {
-            if(confirm("Supprimer pour tout le monde ?")) {
+            if (confirm("Supprimer pour tout le monde ?")) {
                 await deleteDoc(doc(db, "activities", id));
             }
         }
@@ -566,4 +656,5 @@
     </script>
 
 </body>
+
 </html>
